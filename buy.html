@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buy Prop Money</title>
+    <style>
+        body { font-family: Arial; text-align: center; padding: 40px; }
+        select, button { padding: 10px; font-size: 16px; margin: 10px; }
+        #result { margin-top: 20px; font-size: 18px; font-weight: bold; }
+        a { color: blue; }
+    </style>
+</head>
+<body>
+
+<h1>Buy Prop Money</h1>
+
+<label>Select Amount:</label><br>
+
+<select id="amount">
+    <option value="1000">1000 - £1</option>
+    <option value="2000">2000 - £2</option>
+    <option value="3000">3000 - £3</option>
+    <option value="4000">4000 - £4</option>
+    <option value="5000">5000 - £5</option>
+</select>
+<br>
+
+<button onclick="createOrder()">Order</button>
+
+<div id="result"></div>
+
+<script>
+function createOrder() {
+    const amount = document.getElementById("amount").value;
+    const price = amount / 1000;
+    const orderNumber = Math.floor(10000000 + Math.random() * 90000000);
+
+    const orderData = {
+        amount: amount,
+        price: "£" + price,
+        date: new Date().toLocaleString()
+    };
+
+    localStorage.setItem(orderNumber, JSON.stringify(orderData));
+
+    let message = 
+        "Order Number: " + orderNumber +
+        "<br>Amount: " + amount +
+        "<br>Price: £" + price +
+        "<br><br>Text this order number to: 07376073925";
+
+    // If 3000 (£3) selected, show PayPal link
+    if (amount == "3000") {
+        message += 
+        "<br><br>Send £3 via PayPal here:<br>" +
+        "<a href='https://py.pl/XsIuOWOpgiY23Tct13iDwA' target='_blank'>" +
+        "Pay £3 on PayPal</a>";
+    }
+
+    document.getElementById("result").innerHTML = message;
+}
+</script>
+
+</body>
+</html>
